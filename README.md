@@ -1,86 +1,149 @@
-# Library Management System (LMSystem)
+# Library Management System
 
-A Library Management System built with **ASP.NET Core MVC**, **Entity Framework Core (Code First)**, and **SQL Server**, following industry conventions for validation, model binding security, and exception handling.
+A Library Management System built using **ASP.NET Core MVC**, **Entity Framework Core (Code First)**, and **SQL Server**. The application enables efficient management of books and borrowing records while following industry-standard practices such as MVC architecture, secure model binding, server-side validation, and exception handling.
+
+---
 
 ## Features
 
-- **Book Management (CRUD)** — list, view details, add, edit, and delete books.
-- **Borrow / Return workflow** — borrowers can check out an available book and return it later; a book's availability updates automatically.
-- **Model binding security** — `BookId` and `IsAvailable` are decorated with `[BindNever]` so they can never be set via form/POST data (prevents over-posting attacks); availability is only ever changed by server-side logic during borrow/return.
-- **Validation** — required fields, string length limits, ISBN format (`XXX-XXXXXXXXXX`), email and phone format for borrower details, all enforced via Data Annotations and reflected in the UI with `asp-validation-for`.
-- **Graceful error handling** — custom `NotFound` view for missing books/records, generic `Error` view for unhandled exceptions, and try/catch blocks with user-facing messages (`TempData`) in every controller action.
-- **Bootstrap 5 UI** — responsive layout, styled tables, cards, and forms.
+- Complete **CRUD operations** for managing books.
+- Borrow and return books with automatic availability updates.
+- Secure model binding using `[BindNever]` to prevent over-posting attacks.
+- Server-side validation using Data Annotations.
+- Custom error handling with dedicated **Not Found** and **Error** pages.
+- User-friendly notifications using `TempData`.
+- Responsive user interface built with **Bootstrap 5**.
+
+---
 
 ## Tech Stack
 
-| Layer          | Technology                              |
-|----------------|------------------------------------------|
-| Framework      | ASP.NET Core MVC (.NET 8.0)              |
-| ORM            | Entity Framework Core 8.0.0 (Code First) |
-| Database       | SQL Server (LocalDB by default)          |
-| Validation     | Data Annotations                         |
-| Styling        | Bootstrap 5, Bootstrap Icons             |
+| Category | Technology |
+|----------|------------|
+| Framework | ASP.NET Core MVC (.NET 8) |
+| Language | C# |
+| ORM | Entity Framework Core (Code First) |
+| Database | SQL Server / LocalDB |
+| Frontend | Razor Views |
+| Styling | Bootstrap 5 |
+| Validation | Data Annotations |
+
+---
 
 ## Project Structure
 
-```
-LMSystem/
-├── Controllers/
-│   ├── BooksController.cs      # CRUD for books
-│   ├── BorrowController.cs     # Borrow / Return workflow
-│   └── HomeController.cs       # Redirects to Books list; handles global errors
-├── Models/
+```text
+LMSystem
+│
+├── Controllers
+│   ├── BooksController.cs
+│   ├── BorrowController.cs
+│   └── HomeController.cs
+│
+├── Models
 │   ├── Book.cs
 │   ├── BorrowRecord.cs
-│   ├── LibraryContext.cs       # DbContext, seed data
+│   ├── LibraryContext.cs
 │   └── ErrorViewModel.cs
-├── Views/
-│   ├── Books/                  # Index, Details, Create, Edit, Delete
-│   ├── Borrow/                 # Create (borrow form)
-│   └── Shared/                 # _Layout, NotFound, Error
-├── Migrations/                 # EF Core migrations
-└── appsettings.json             # Connection string
+│
+├── Views
+│   ├── Books
+│   ├── Borrow
+│   └── Shared
+│
+├── Migrations
+├── wwwroot
+├── appsettings.json
+├── Program.cs
+└── LMSystem.csproj
 ```
+
+---
 
 ## Getting Started
 
 ### Prerequisites
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)
-- SQL Server LocalDB (installed with Visual Studio) or a full SQL Server instance
 
-### Setup
+- .NET 8 SDK
+- SQL Server LocalDB or SQL Server
+- Visual Studio 2022 (Recommended)
 
-1. **Clone the repo**
-   ```bash
-   git clone https://github.com/<your-username>/<your-repo>.git
-   cd LMSystem
-   ```
+### Installation
 
-2. **Update the connection string** in `LMSystem/appsettings.json` if you're not using the default LocalDB instance:
-   ```json
-   "DefaultConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LMS;..."
-   ```
+Clone the repository:
 
-3. **Apply migrations** to create the database and seed data:
-   ```bash
-   cd LMSystem
-   dotnet ef database update
-   ```
-   *(If you don't have the EF Core CLI tool: `dotnet tool install --global dotnet-ef`)*
+```bash
+git clone https://github.com/Gaurav-Pareta/LMSystem.git
+```
 
-4. **Run the app**
-   ```bash
-   dotnet run
-   ```
-   Navigate to the URL shown in the console (e.g. `https://localhost:xxxx`). The default route lands on the **Books list**.
+Navigate to the project directory:
 
-## Known Limitations / Ideas for Future Improvement
+```bash
+cd LMSystem
+```
 
-- `BorrowRecord.BookId` is bound from a hidden form field rather than `[BindNever]`, since the controller needs to know which book is being borrowed. It is currently re-validated against the route parameter on `GET`, but not strictly re-checked byte-for-byte against a tampered `POST` value — fine for a coursework/demo project, worth hardening if this goes to production.
-- No authentication/authorization — the app assumes a single trusted administrator persona, per the original requirements.
-- No search, filtering, or pagination on the Books list yet.
-- No automated tests.
+Restore dependencies:
+
+```bash
+dotnet restore
+```
+
+Apply database migrations:
+
+```bash
+dotnet ef database update
+```
+
+> If the EF Core CLI is not installed:
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+Run the application:
+
+```bash
+dotnet run
+```
+
+Open the URL displayed in the terminal (typically `https://localhost:xxxx`).
+
+---
+
+## Key Concepts Demonstrated
+
+- ASP.NET Core MVC Architecture
+- Entity Framework Core (Code First)
+- CRUD Operations
+- SQL Server Integration
+- Razor Views
+- Model Binding
+- Data Validation
+- Exception Handling
+- Bootstrap 5 UI Development
+
+---
+
+## Future Improvements
+
+- Authentication and Authorization
+- Search, Filter, and Pagination
+- Role-Based Access Control
+- Book Categories
+- Fine Management
+- Email Notifications
+- Unit and Integration Testing
+
+---
 
 ## License
 
-This is a learning/practice project. Feel free to fork and adapt.
+This project was developed for learning purposes and portfolio demonstration. Feel free to fork and improve it.
+
+---
+
+## Author
+
+**Gaurav Pareta**
+
+- GitHub: https://github.com/Gaurav-Pareta
