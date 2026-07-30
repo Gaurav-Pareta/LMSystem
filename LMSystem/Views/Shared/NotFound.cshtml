@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Page Not Found";
+}
+
+<div class="container text-center mt-5">
+    <h1 class="display-4 text-danger">Resource Not Found</h1>
+    <p class="lead">@TempData["ErrorMessage"]</p>
+    <a asp-action="Index" asp-controller="Books" class="btn btn-primary">Back to Book List</a>
+</div>

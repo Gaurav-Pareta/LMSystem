@@ -1,0 +1,42 @@
+﻿@model LMSystem.Models.BorrowRecord
+
+@{
+    ViewData["Title"] = "Borrow Book";
+}
+
+<div class="card" style="max-width: 600px;">
+    <div class="card-header bg-primary text-white">
+        <h4>Borrow Book: @ViewBag.BookTitle</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="alert alert-danger d-none"></div>
+            <input type="hidden" asp-for="BookId" />
+
+            <div class="mb-3">
+                <label asp-for="BorrowerName" class="form-label"></label>
+                <input asp-for="BorrowerName" class="form-control" placeholder="Enter your name" />
+                <span asp-validation-for="BorrowerName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BorrowerEmail" class="form-label"></label>
+                <input asp-for="BorrowerEmail" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="BorrowerEmail" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Confirm Borrow</button>
+            <a asp-action="Index" asp-controller="Books" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
